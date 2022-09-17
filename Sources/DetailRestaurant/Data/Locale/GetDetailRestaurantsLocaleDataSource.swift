@@ -20,8 +20,7 @@ public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
         _realm = realm
     }
     
-    public func list(request: String?) -> Observable<[DetailRestaurantModuleEntity]> {
-        
+    public func getRestaurants() -> Observable<[DetailRestaurantModuleEntity]> {
         return Observable<[DetailRestaurantModuleEntity]>.create { observer in
             if let realm = self._realm {
                 let detail: Results<DetailRestaurantModuleEntity> = {
@@ -34,10 +33,31 @@ public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
             }
             return Disposables.create()
         }
-        
     }
     
-    public func add(entities: DetailRestaurantModuleEntity) -> Observable<Bool> {
+    public func getRestaurant(request id: Int) -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+          if let localDatabase = self._realm {
+            do {
+              let getObjectById = localDatabase.objects(DetailRestaurantModuleEntity.self).filter("id == %@", id).first
+
+              if getObjectById != nil {
+                observer.onNext(true)
+              } else {
+                observer.onNext(false)
+              }
+
+              observer.onCompleted()
+            }
+          } else {
+            observer.onError(DatabaseError.requestFailed)
+            print(DatabaseError.requestFailed)
+          }
+          return Disposables.create()
+        }
+    }
+    
+    public func addRestaurant(entities: DetailRestaurantModuleEntity) -> Observable<Bool> {
         return Observable<Bool>.create { observer in
             if let realm = self._realm {
                 do {
@@ -56,11 +76,7 @@ public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
         }
     }
     
-    public func get(request id: String) -> Observable<DetailRestaurantModuleEntity> {
-        fatalError()
-    }
-    
-    public func delete(request data: DetailRestaurantModuleEntity) -> Observable<Bool> {
+    public func removeRestaurant(id: Int) -> Observable<Bool> {
         return Observable<Bool>.create { observer in
             if let realm = self._realm {
                 do {
