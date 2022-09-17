@@ -118,4 +118,23 @@ where
             customerReviews: customer
         )
     }
+        
+    public func transformDomainToEntity(domain: DetailRestaurantDomainModel) -> DetailRestaurantModuleEntity {
+        let categories = _categoriesMapper.transformDomainToEntity(domain: domain)
+        let menus = _menusMapper.transformDomainToEntity(domain: domain)
+        let customer = _customerMapper.transformDomainToEntity(domain: domain)
+        
+        let newDetail = DetailRestaurantModuleEntity()
+        newDetail.id = response.id ?? ""
+        newDetail.name = response.name ?? ""
+        newDetail.descriptions = response.descriptions ?? ""
+        newDetail.pictureId = response.pictureId ?? ""
+        newDetail.city = response.city ?? ""
+        newDetail.address = response.address ?? ""
+        newDetail.rating = response.rating ?? 0.0
+        newDetail.categories = categories
+        newDetail.menus = menus
+        newDetail.customerReviews = customer
+        return newDetail
+    }
 }

@@ -55,4 +55,17 @@ public struct CustomerTransformer: Mapper {
         }
     }
     
+    public func transformDomainToEntity(domain: [CustomerReviews]) -> List<CustomerReviewsEntity> {
+        let newCustomer = List<CustomerReviewsEntity>()
+        
+        for item in domain {
+            let customerEntity = CustomerReviewsEntity()
+            customerEntity.name = item.name ?? ""
+            customerEntity.review = item.review ?? ""
+            customerEntity.date = item.date ?? ""
+        }
+        
+        return newCustomer
+    }
+    
 }

@@ -52,4 +52,15 @@ public struct CategoriesTransformer: Mapper {
         }
     }
     
+    public func transformDomainToEntity(domain: [Categories]) -> List<CategoryEntity> {
+        let newCategory = List<CategoryEntity>()
+        
+        for item in domain {
+            let categoryEntity = CategoryEntity()
+            categoryEntity.name = item.name ?? ""
+        }
+        
+        return newCategory
+    }
+    
 }
