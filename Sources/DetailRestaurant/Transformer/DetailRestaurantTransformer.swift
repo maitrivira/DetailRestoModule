@@ -41,11 +41,11 @@ where
         _customerMapper = customerMapper
     }
     
-    public func transformResponseToEntity(request: String?, response: DetailRestaurantResponse) -> DetailRestaurantModuleEntity {
+    public func transformResponseToEntity(response: DetailRestaurantResponse) -> DetailRestaurantModuleEntity {
         
-        let categories = _categoriesMapper.transformResponseToEntity(request: request, response: response)
-        let menus = _menusMapper.transformResponseToEntity(request: request, response: response)
-        let customer = _customerMapper.transformResponseToEntity(request: request, response: response)
+        let categories = _categoriesMapper.transformResponseToEntity(response: response)
+        let menus = _menusMapper.transformResponseToEntity(response: response)
+        let customer = _customerMapper.transformResponseToEntity(response: response)
         
         let newDetail = DetailRestaurantModuleEntity()
         newDetail.id = response.id ?? ""
@@ -61,11 +61,11 @@ where
         return newDetail
     }
     
-    public func transformModelToEntity(request: String?, response: DetailRestaurantResponse) -> DetailRestaurantModuleEntity {
+    public func transformModelToEntity(response: DetailRestaurantResponse) -> DetailRestaurantModuleEntity {
         
-        let categories = _categoriesMapper.transformResponseToEntity(request: request, response: response)
-        let menus = _menusMapper.transformResponseToEntity(request: request, response: response)
-        let customer = _customerMapper.transformResponseToEntity(request: request, response: response)
+        let categories = _categoriesMapper.transformResponseToEntity(response: response)
+        let menus = _menusMapper.transformResponseToEntity(response: response)
+        let customer = _customerMapper.transformResponseToEntity(response: response)
         
         let newDetail = DetailRestaurantModuleEntity()
         newDetail.id = response.id ?? ""

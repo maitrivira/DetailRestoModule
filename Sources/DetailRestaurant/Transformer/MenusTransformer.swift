@@ -17,7 +17,7 @@ public struct MenusTransformer: Mapper {
     
     public init() { }
     
-    public func transformResponseToEntity(request: String?, response: DetailRestaurantResponse) -> List<MenusEntity> {
+    public func transformResponseToEntity(response: DetailRestaurantResponse) -> List<MenusEntity> {
         let newMenu = List<MenusEntity>()
         
         let drinkEntity = DrinksEntity()
@@ -34,7 +34,7 @@ public struct MenusTransformer: Mapper {
         return newMenu
     }
     
-    public func transformModelToEntity(request: String?, response: DetailRestaurantResponse) -> List<MenusEntity> {
+    public func transformModelToEntity(response: DetailRestaurantResponse) -> List<MenusEntity> {
         let newMenu = List<MenusEntity>()
         
         let drinkEntity = DrinksEntity()
@@ -62,4 +62,18 @@ public struct MenusTransformer: Mapper {
         return Menus(foods: response.menus.foods, drinks: response.menus.drinks)
     }
     
+    public func transformDomainToEntity(domain: Menus) -> List<MenusEntity> {
+        return 
+    }
+    
+    public func transformEntityToDomain(entity: [CategoryEntity]) -> [CategoryModel] {
+        return entity.map { result in
+          return CategoryModel(
+            id: result.id,
+            title: result.title,
+            image: result.image,
+            description: result.desc
+          )
+        }
+    }
 }

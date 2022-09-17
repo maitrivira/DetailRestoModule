@@ -17,7 +17,7 @@ public struct CategoriesTransformer: Mapper {
     
     public init() { }
     
-    public func transformResponseToEntity(request: String?, response: DetailRestaurantResponse) -> List<CategoryEntity> {
+    public func transformResponseToEntity(response: DetailRestaurantResponse) -> List<CategoryEntity> {
         let newCategory = List<CategoryEntity>()
         
         for item in response.categories {
@@ -29,7 +29,7 @@ public struct CategoriesTransformer: Mapper {
         
     }
     
-    public func transformModelToEntity(request: String?, response: DetailRestaurantResponse) -> List<CategoryEntity> {
+    public func transformModelToEntity(response: DetailRestaurantResponse) -> List<CategoryEntity> {
         let newCategory = List<CategoryEntity>()
         
         for item in response.categories {

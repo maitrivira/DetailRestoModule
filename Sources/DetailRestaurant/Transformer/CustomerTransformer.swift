@@ -17,7 +17,7 @@ public struct CustomerTransformer: Mapper {
     
     public init() { }
     
-    public func transformResponseToEntity(request: String?, response: DetailRestaurantResponse) -> List<CustomerReviewsEntity> {
+    public func transformResponseToEntity(response: DetailRestaurantResponse) -> List<CustomerReviewsEntity> {
         let newCustomer = List<CustomerReviewsEntity>()
         
         for item in response.customerReviews {
@@ -30,7 +30,7 @@ public struct CustomerTransformer: Mapper {
         return newCustomer
     }
     
-    public func transformModelToEntity(request: String?, response: DetailRestaurantResponse) -> List<CustomerReviewsEntity> {
+    public func transformModelToEntity(response: DetailRestaurantResponse) -> List<CustomerReviewsEntity> {
         let newCustomer = List<CustomerReviewsEntity>()
         
         for item in response.customerReviews {
