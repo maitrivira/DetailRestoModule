@@ -46,7 +46,7 @@ public struct CategoriesTransformer: Mapper {
         }
     }
     
-    public func transformResponseToDomain(request: String?, response: DetailRestaurantResponse) -> [Categories] {
+    public func transformResponseToDomain(response: DetailRestaurantResponse) -> [Categories] {
         return response.categories.map { result in
             return Categories(name: result.name)
         }

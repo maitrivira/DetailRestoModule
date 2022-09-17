@@ -100,10 +100,10 @@ where
         )
     }
     
-    public func transformResponseToDomain(request: String?, response: DetailRestaurantResponse) -> DetailRestaurantDomainModel {
-        let categories = _categoriesMapper.transformResponseToDomain(request: request, response: response)
-        let menus = _menusMapper.transformResponseToDomain(request: request, response: response)
-        let customer = _customerMapper.transformResponseToDomain(request: request, response: response)
+    public func transformResponseToDomain(response: DetailRestaurantResponse) -> DetailRestaurantDomainModel {
+        let categories = _categoriesMapper.transformResponseToDomain(response: response)
+        let menus = _menusMapper.transformResponseToDomain(response: response)
+        let customer = _customerMapper.transformResponseToDomain(response: response)
         
         return DetailRestaurantDomainModel(
             id: response.id ?? "",

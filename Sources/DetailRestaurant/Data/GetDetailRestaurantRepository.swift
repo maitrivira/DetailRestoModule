@@ -40,7 +40,7 @@ where
     }
     
     public func execute(request: String?) -> Observable<DetailRestaurantDomainModel> {
-        return _remoteDataSource.getRestaurants(request: request).map { _mapper.transformResponseToDomain(request: nil, response: $0) }
+        return _remoteDataSource.getRestaurants(request: request).map { _mapper.transformResponseToDomain(response: $0) }
     }
     
 }

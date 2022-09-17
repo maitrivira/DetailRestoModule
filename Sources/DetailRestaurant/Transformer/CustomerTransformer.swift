@@ -49,7 +49,7 @@ public struct CustomerTransformer: Mapper {
         }
     }
     
-    public func transformResponseToDomain(request: String?, response: DetailRestaurantResponse) -> [CustomerReviews] {
+    public func transformResponseToDomain(response: DetailRestaurantResponse) -> [CustomerReviews] {
         return response.customerReviews.map { result in
             return CustomerReviews(name: result.name, review: result.review, date: result.date)
         }

@@ -58,7 +58,7 @@ public struct MenusTransformer: Mapper {
         return Menus(foods: foods, drinks: drinks)
     }
     
-    public func transformResponseToDomain(request: String?, response: DetailRestaurantResponse) -> Menus {
+    public func transformResponseToDomain(response: DetailRestaurantResponse) -> Menus {
         return Menus(foods: response.menus.foods, drinks: response.menus.drinks)
     }
     
