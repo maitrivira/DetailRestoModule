@@ -17,7 +17,6 @@ where
     RestaurantLocaleDataSource.Response == DetailRestaurantModuleEntity,
     RemoteDataSource.Request == String,
     RemoteDataSource.Response == DetailRestaurantResponse,
-    Transformer.Request == String,
     Transformer.Response == DetailRestaurantResponse,
     Transformer.Entity == DetailRestaurantModuleEntity,
     Transformer.Domain == DetailRestaurantDomainModel {

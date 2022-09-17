@@ -81,7 +81,7 @@ public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
             if let realm = self._realm {
                 do {
                     try realm.write {
-                        realm.delete(realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", data.id))
+                        realm.delete(realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", id))
                         observer.onNext(true)
                         observer.onCompleted()
                     }
