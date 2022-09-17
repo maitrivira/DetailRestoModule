@@ -11,17 +11,14 @@ import RealmSwift
 public struct DetailRestaurantTransformer<CategoryMapper: Mapper, MenusMapper: Mapper, CustomerMapper: Mapper>: Mapper
 where
 
-    CategoryMapper.Request == String,
     CategoryMapper.Response == DetailRestaurantResponse,
     CategoryMapper.Entity == List<CategoryEntity>,
     CategoryMapper.Domain == [Categories],
 
-    MenusMapper.Request == String,
     MenusMapper.Response == DetailRestaurantResponse,
     MenusMapper.Entity == List<MenusEntity>,
     MenusMapper.Domain == Menus,
 
-    CustomerMapper.Request == String,
     CustomerMapper.Response == DetailRestaurantResponse,
     CustomerMapper.Entity == List<CustomerReviewsEntity>,
     CustomerMapper.Domain == [CustomerReviews]{
@@ -120,6 +117,10 @@ where
     }
         
     public func transformDomainToEntity(domain: DetailRestaurantDomainModel) -> DetailRestaurantModuleEntity {
+        let categories = _categoriesMapper.transformDomainToEntity(domain: domain.categories)
+        let menus = _menusMapper.transformDomainToEntity(domain: domain.menus)
+        let customer = _customerMapper.transformDomainToEntity(domain: domain.customerReviews)
+        
         let newDetail = DetailRestaurantModuleEntity()
         newDetail.id = domain.id ?? ""
         newDetail.name = domain.name ?? ""
@@ -128,9 +129,9 @@ where
         newDetail.city = domain.city ?? ""
         newDetail.address = domain.address ?? ""
         newDetail.rating = domain.rating ?? 0.0
-        newDetail.categories = domain.categories
-        newDetail.menus = domain.menus
-        newDetail.customerReviews = domain.customer
+        newDetail.categories = categories
+        newDetail.menus = menus
+        newDetail.customerReviews = customer
         return newDetail
     }
 }
