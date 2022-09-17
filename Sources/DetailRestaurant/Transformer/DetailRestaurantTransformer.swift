@@ -122,13 +122,13 @@ where
         let customer = _customerMapper.transformDomainToEntity(domain: domain.customerReviews)
         
         let newDetail = DetailRestaurantModuleEntity()
-        newDetail.id = domain.id ?? ""
-        newDetail.name = domain.name ?? ""
-        newDetail.descriptions = domain.descriptions ?? ""
-        newDetail.pictureId = domain.pictureId ?? ""
-        newDetail.city = domain.city ?? ""
-        newDetail.address = domain.address ?? ""
-        newDetail.rating = domain.rating ?? 0.0
+        newDetail.id = domain.id
+        newDetail.name = domain.name
+        newDetail.descriptions = domain.descriptions
+        newDetail.pictureId = domain.pictureId
+        newDetail.city = domain.city
+        newDetail.address = domain.address
+        newDetail.rating = domain.rating
         newDetail.categories = categories
         newDetail.menus = menus
         newDetail.customerReviews = customer
