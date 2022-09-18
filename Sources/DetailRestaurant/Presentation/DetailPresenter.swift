@@ -14,7 +14,7 @@ where
     DetailRestoUseCase.Request == String,
     DetailRestoUseCase.Response == DetailRestaurantDomainModel,
     FavUseCase.Request == Any,
-    FavUseCase.Response == [DetailRestaurantDomainModel]
+    FavUseCase.Response == [RestaurantDomainModel]
 {
     
     private let disposeBag = DisposeBag()
