@@ -49,7 +49,7 @@ where
     }
     
     func containsId(of id: String) -> Bool {
-        let data = list.contains { $0.id == id }
+        let data = list.id == id
         return data
     }
 }
