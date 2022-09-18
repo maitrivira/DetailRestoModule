@@ -2,7 +2,7 @@
 //  File.swift
 //  
 //
-//  Created by Maitri Vira on 29/05/22.
+//  Created by Maitri Vira on 18/09/22.
 //
 
 import Core
@@ -10,7 +10,7 @@ import RxSwift
 import RealmSwift
 import Foundation
 
-public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
+public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     
     public typealias Request = String
     public typealias Response = DetailRestaurantModuleEntity
@@ -59,38 +59,20 @@ public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
     
     public func addRestaurant(entities: DetailRestaurantModuleEntity) -> Observable<Bool> {
         return Observable<Bool>.create { observer in
-          if let localDatabase = self._realm {
-            do {
-                let getObjectById = localDatabase.objects(RestaurantModuleEntity.self).filter("id == %@", entities).first
-
-              if getObjectById != nil {
-                try localDatabase.write {
-                  localDatabase.delete(getObjectById!)
-
-                  observer.onNext(true)
-                  observer.onCompleted()
-                  print("data has beeen deleted to local DB")
+            if let realm = self._realm {
+                do {
+                    try realm.write {
+                        realm.add(entities, update: .all)
+                        observer.onNext(true)
+                        observer.onCompleted()
+                    }
+                } catch {
+                    observer.onError(DatabaseError.requestFailed)
                 }
-              } else {
-                try localDatabase.write {
-                  localDatabase.add(entities)
-
-                  observer.onNext(true)
-                  observer.onCompleted()
-                  print("data has beeen saved to local DB")
-                  print(entities)
-                }
-              }
-
-            } catch {
-              observer.onError(DatabaseError.requestFailed)
-              print(DatabaseError.requestFailed)
+            } else {
+                observer.onError(DatabaseError.requestFailed)
             }
-          } else {
-            observer.onError(DatabaseError.requestFailed)
-            print(DatabaseError.requestFailed)
-          }
-          return Disposables.create()
+            return Disposables.create()
         }
     }
     
@@ -112,5 +94,4 @@ public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
             return Disposables.create()
         }
     }
-    
 }

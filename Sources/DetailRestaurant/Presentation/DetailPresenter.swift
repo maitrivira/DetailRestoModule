@@ -22,7 +22,6 @@ where
     private let _favUseCase: FavUseCase
     
     @Published public var list: DetailRestaurantDomainModel?
-    @Published public var listFavourite: [DetailRestaurantDomainModel] = []
     @Published public var errorMessage: String = ""
     @Published public var isLoading: Bool = false
     @Published public var isError: Bool = false
@@ -39,7 +38,7 @@ where
         _detailUseCase.execute(request: request)
             .observe(on: MainScheduler.instance)
             .subscribe { result in
-//                self.list = result
+                self.list = result
             } onError: { error in
                 self.errorMessage = error.localizedDescription
                 self.isError = true
@@ -49,9 +48,19 @@ where
             }.disposed(by: disposeBag)
     }
     
-//    func containsId(of id: String) -> Bool {
-//
-//        let data = list.contains { $0.id == id }
-//        return data
-//    }
+    // update favourite
+    public func updateFavouriteList(request: FavUseCase.Request) {
+        isLoading = true
+        _favUseCase.execute(request: request)
+            .observe(on: MainScheduler.instance)
+            .subscribe { result in
+                self.isSaved = result
+            } onError: { error in
+                self.errorMessage = error.localizedDescription
+                self.isError = true
+                self.isLoading = false
+            } onCompleted: {
+                self.isLoading = false
+            }.disposed(by: disposeBag)
+    }
 }
