@@ -10,7 +10,7 @@ import RealmSwift
 
 public struct MenusTransformer: Mapper {
     
-    public typealias Request = String
+    public typealias Request = DetailRestaurantDomainModel
     public typealias Response = DetailRestaurantResponse
     public typealias Entity = List<MenusEntity>
     public typealias Domain = Menus
@@ -34,17 +34,17 @@ public struct MenusTransformer: Mapper {
         return newMenu
     }
     
-    public func transformModelToEntity(response: DetailRestaurantResponse) -> List<MenusEntity> {
+    public func transformModelToEntity(request: DetailRestaurantDomainModel) -> List<MenusEntity> {
         let newMenu = List<MenusEntity>()
         
         let drinkEntity = DrinksEntity()
         let foodEntity = FoodEntity()
         
-        for drinks in response.menus.drinks {
+        for drinks in request.menus.drinks {
             drinkEntity.name = drinks.name ?? ""
         }
         
-        for foods in response.menus.foods {
+        for foods in request.menus.foods {
             foodEntity.name = foods.name ?? ""
         }
     

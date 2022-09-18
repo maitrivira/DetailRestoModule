@@ -23,7 +23,7 @@ where
     CustomerMapper.Entity == List<CustomerReviewsEntity>,
     CustomerMapper.Domain == [CustomerReviews]{
     
-    public typealias Request = String
+    public typealias Request = DetailRestaurantDomainModel
     public typealias Response = DetailRestaurantResponse
     public typealias Entity = DetailRestaurantModuleEntity
     public typealias Domain = DetailRestaurantDomainModel
@@ -57,21 +57,20 @@ where
         newDetail.customerReviews = customer
         return newDetail
     }
-    
-    public func transformModelToEntity(response: DetailRestaurantResponse) -> DetailRestaurantModuleEntity {
         
-        let categories = _categoriesMapper.transformResponseToEntity(response: response)
-        let menus = _menusMapper.transformResponseToEntity(response: response)
-        let customer = _customerMapper.transformResponseToEntity(response: response)
+    public func transformModelToEntity(request: DetailRestaurantDomainModel) -> DetailRestaurantModuleEntity {
+        let categories = _categoriesMapper.transformDomainToEntity(domain: request.categories)
+        let menus = _menusMapper.transformDomainToEntity(domain: request.menus)
+        let customer = _customerMapper.transformDomainToEntity(domain: request.customerReviews)
         
         let newDetail = DetailRestaurantModuleEntity()
-        newDetail.id = response.id ?? ""
-        newDetail.name = response.name ?? ""
-        newDetail.descriptions = response.descriptions ?? ""
-        newDetail.pictureId = response.pictureId ?? ""
-        newDetail.city = response.city ?? ""
-        newDetail.address = response.address ?? ""
-        newDetail.rating = response.rating ?? 0.0
+        newDetail.id = request.id
+        newDetail.name = request.name
+        newDetail.descriptions = request.descriptions
+        newDetail.pictureId = request.pictureId
+        newDetail.city = request.city
+        newDetail.address = request.address
+        newDetail.rating = request.rating
         newDetail.categories = categories
         newDetail.menus = menus
         newDetail.customerReviews = customer

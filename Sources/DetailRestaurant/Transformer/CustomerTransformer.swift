@@ -10,7 +10,7 @@ import RealmSwift
 
 public struct CustomerTransformer: Mapper {
     
-    public typealias Request = String
+    public typealias Request = DetailRestaurantDomainModel
     public typealias Response = DetailRestaurantResponse
     public typealias Entity = List<CustomerReviewsEntity>
     public typealias Domain = [CustomerReviews]
@@ -30,10 +30,10 @@ public struct CustomerTransformer: Mapper {
         return newCustomer
     }
     
-    public func transformModelToEntity(response: DetailRestaurantResponse) -> List<CustomerReviewsEntity> {
+    public func transformModelToEntity(request: DetailRestaurantDomainModel) -> List<CustomerReviewsEntity> {
         let newCustomer = List<CustomerReviewsEntity>()
         
-        for item in response.customerReviews {
+        for item in request.customerReviews {
             let customerEntity = CustomerReviewsEntity()
             customerEntity.name = item.name ?? ""
             customerEntity.review = item.review ?? ""
