@@ -13,7 +13,7 @@ public struct UpdateFavoriteRepository<
     Transformer: Mapper>: Repository
 where
     RestaurantLocaleDataSource.Request == DetailRestaurantDomainModel,
-    RestaurantLocaleDataSource.Response == DetailRestaurantModuleEntity,
+    RestaurantLocaleDataSource.Response == Bool,
     Transformer.Response == DetailRestaurantResponse,
     Transformer.Entity == DetailRestaurantModuleEntity,
     Transformer.Domain == DetailRestaurantDomainModel {
