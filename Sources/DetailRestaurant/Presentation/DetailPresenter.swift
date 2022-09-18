@@ -48,8 +48,9 @@ where
             }.disposed(by: disposeBag)
     }
     
-    func containsId(of id: String) -> Bool {
-        let data = list.id == id
-        return data
-    }
+//    func containsId(of id: String) -> Bool {
+//        
+//        let data = list.contains { $0.id == id }
+//        return data
+//    }
 }
