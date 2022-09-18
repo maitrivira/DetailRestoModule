@@ -63,7 +63,7 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
                       }
                     } else {
                       try localDatabase.write {
-                        localDatabase.add(entities)
+                        localDatabase.add(getObjectById)
 
                         observer.onNext(true)
                         observer.onCompleted()
