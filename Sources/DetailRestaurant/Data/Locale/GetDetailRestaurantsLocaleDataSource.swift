@@ -12,7 +12,7 @@ import Foundation
 
 public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
     
-    public typealias Request = DetailRestaurantDomainModel
+    public typealias Request = String
     public typealias Response = DetailRestaurantModuleEntity
     
     private let _realm: Realm?
