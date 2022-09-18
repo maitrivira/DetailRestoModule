@@ -33,9 +33,9 @@ where
         _favUseCase = favUseCase
     }
     
-    public func getList(request: Request?) {
+    public func getList(request: DetailRestoUseCase.Request) {
         isLoading = true
-        _useCase.execute(request: request)
+        _detailUseCase.execute(request: request)
             .observe(on: MainScheduler.instance)
             .subscribe { result in
                 self.list = result
