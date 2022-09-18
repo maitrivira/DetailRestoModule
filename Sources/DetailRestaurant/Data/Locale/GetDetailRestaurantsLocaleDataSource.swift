@@ -61,7 +61,7 @@ public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
         return Observable<Bool>.create { observer in
           if let localDatabase = self._realm {
             do {
-                let getObjectById = localDatabase.objects(RestaurantModuleEntity.self).filter("id == %@", entities).first
+                let getObjectById = localDatabase.objects(DetailRestaurantModuleEntity.self).filter("id == %@", entities).first
 
               if getObjectById != nil {
                 try localDatabase.write {
