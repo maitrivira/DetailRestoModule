@@ -18,11 +18,11 @@ where
 {
     
     private let disposeBag = DisposeBag()
-    
     private let _detailUseCase: DetailRestoUseCase
     private let _favUseCase: FavUseCase
     
-    @Published public var list: [DetailRestaurantDomainModel] = []
+    @Published public var list: DetailRestaurantDomainModel?
+    @Published public var listFavourite: [DetailRestaurantDomainModel] = []
     @Published public var errorMessage: String = ""
     @Published public var isLoading: Bool = false
     @Published public var isError: Bool = false
@@ -33,12 +33,13 @@ where
         _favUseCase = favUseCase
     }
     
+    // get detail
     public func getList(request: DetailRestoUseCase.Request) {
         isLoading = true
         _detailUseCase.execute(request: request)
             .observe(on: MainScheduler.instance)
             .subscribe { result in
-                self.list = result
+//                self.list = result
             } onError: { error in
                 self.errorMessage = error.localizedDescription
                 self.isError = true
