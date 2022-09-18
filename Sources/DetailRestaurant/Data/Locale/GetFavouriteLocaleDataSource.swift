@@ -50,26 +50,28 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
         return Observable<Bool>.create { observer in
           if let localDatabase = self._realm {
             do {
-                let getObjectById = localDatabase.objects(DetailRestaurantDomainModel.self).filter("id == %@", entities).first
+              let getObjectById = localDatabase.objects(DetailRestaurantModuleEntity.self).filter("id == %@", entities.id).first
 
-              if getObjectById != nil {
-                try localDatabase.write {
-                  localDatabase.delete(getObjectById!)
+                if let getObjectById = getObjectById {
+                    if getObjectById != nil {
+                      try localDatabase.write {
+                        localDatabase.delete(getObjectById)
 
-                  observer.onNext(true)
-                  observer.onCompleted()
-                  print("data has beeen deleted to local DB")
+                        observer.onNext(true)
+                        observer.onCompleted()
+                        print("data has beeen deleted to local DB")
+                      }
+                    } else {
+                      try localDatabase.write {
+                        localDatabase.add(entities)
+
+                        observer.onNext(true)
+                        observer.onCompleted()
+                        print("data has beeen saved to local DB")
+                        print(entities)
+                      }
+                    }
                 }
-              } else {
-                try localDatabase.write {
-                  localDatabase.add(entities)
-
-                  observer.onNext(true)
-                  observer.onCompleted()
-                  print("data has beeen saved to local DB")
-                  print(entities)
-                }
-              }
 
             } catch {
               observer.onError(DatabaseError.requestFailed)
