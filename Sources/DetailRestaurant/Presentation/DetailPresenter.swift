@@ -54,7 +54,7 @@ where
         _favUseCase.execute(request: request)
             .observe(on: MainScheduler.instance)
             .subscribe { result in
-                self.isSaved = result
+//                self.isSaved = result
             } onError: { error in
                 self.errorMessage = error.localizedDescription
                 self.isError = true
