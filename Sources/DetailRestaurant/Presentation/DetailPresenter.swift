@@ -14,7 +14,7 @@ where
     DetailRestoUseCase.Request == String,
     DetailRestoUseCase.Response == DetailRestaurantDomainModel,
     FavUseCase.Request == Any,
-    FavUseCase.Response == [RestaurantDomainModel]
+    FavUseCase.Response == [DetailRestaurantDomainModel]
 {
     
     private let disposeBag = DisposeBag()
@@ -22,7 +22,7 @@ where
     private let _detailUseCase: DetailRestoUseCase
     private let _favUseCase: FavUseCase
     
-    @Published public var list: [RestaurantDomainModel] = []
+    @Published public var list: [DetailRestaurantDomainModel] = []
     @Published public var errorMessage: String = ""
     @Published public var isLoading: Bool = false
     @Published public var isError: Bool = false
