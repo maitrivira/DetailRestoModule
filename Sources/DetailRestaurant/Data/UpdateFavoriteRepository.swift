@@ -33,6 +33,6 @@ where
         }
         
         public func execute(request: DetailRestaurantDomainModel?) -> Observable<Bool> {
-            return _localeDataSource.addRestaurant(entities: request)
+            return _localeDataSource.addRestaurant(entities: request ?? emptyDetail)
         }
 }
