@@ -14,7 +14,7 @@ public struct GetDetailRestaurantRepository<
     Transformer: Mapper>: Repository
 where
     RestaurantLocaleDataSource.Request == String,
-    RestaurantLocaleDataSource.Response == DetailRestaurantModuleEntity,
+    RestaurantLocaleDataSource.Response == DetailRestaurantDomainModel,
     RemoteDataSource.Request == String,
     RemoteDataSource.Response == DetailRestaurantResponse,
     Transformer.Response == DetailRestaurantResponse,
