@@ -22,7 +22,7 @@ where
     private let _detailUseCase: DetailRestoUseCase
     private let _favUseCase: FavUseCase
     
-    @Published public var list: [DetailRestaurantDomainModel] = []
+    @Published public var list: DetailRestaurantDomainModel?
     @Published public var errorMessage: String = ""
     @Published public var isLoading: Bool = false
     @Published public var isError: Bool = false
