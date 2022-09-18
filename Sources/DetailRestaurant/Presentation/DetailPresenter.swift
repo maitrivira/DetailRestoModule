@@ -13,8 +13,8 @@ public class DetailPresenter<DetailRestoUseCase: UseCase, FavUseCase: UseCase>: 
 where
     DetailRestoUseCase.Request == String,
     DetailRestoUseCase.Response == DetailRestaurantDomainModel,
-    FavUseCase.Request == Any,
-    FavUseCase.Response == [DetailRestaurantDomainModel]
+    FavUseCase.Request == Bool,
+    FavUseCase.Response == DetailRestaurantDomainModel
 {
     
     private let disposeBag = DisposeBag()
