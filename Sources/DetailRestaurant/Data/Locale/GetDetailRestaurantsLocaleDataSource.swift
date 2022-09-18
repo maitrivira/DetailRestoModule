@@ -57,41 +57,8 @@ public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
         }
     }
     
-    public func addRestaurant(entities: DetailRestaurantModuleEntity) -> Observable<Bool> {
-        return Observable<Bool>.create { observer in
-          if let localDatabase = self._realm {
-            do {
-                let getObjectById = localDatabase.objects(DetailRestaurantModuleEntity.self).filter("id == %@", entities).first
-
-              if getObjectById != nil {
-                try localDatabase.write {
-                  localDatabase.delete(getObjectById!)
-
-                  observer.onNext(true)
-                  observer.onCompleted()
-                  print("data has beeen deleted to local DB")
-                }
-              } else {
-                try localDatabase.write {
-                  localDatabase.add(entities)
-
-                  observer.onNext(true)
-                  observer.onCompleted()
-                  print("data has beeen saved to local DB")
-                  print(entities)
-                }
-              }
-
-            } catch {
-              observer.onError(DatabaseError.requestFailed)
-              print(DatabaseError.requestFailed)
-            }
-          } else {
-            observer.onError(DatabaseError.requestFailed)
-            print(DatabaseError.requestFailed)
-          }
-          return Disposables.create()
-        }
+    public func addRestaurant(entities: String) -> Observable<Bool> {
+        fatalError()
     }
     
     public func removeRestaurant(id: Int) -> Observable<Bool> {
