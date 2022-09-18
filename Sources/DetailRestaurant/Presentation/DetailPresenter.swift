@@ -22,7 +22,7 @@ where
     private let _detailUseCase: DetailRestoUseCase
     private let _favUseCase: FavUseCase
     
-    @Published public var list: DetailRestaurantDomainModel?
+    @Published public var list: [RestaurantDomainModel] = []
     @Published public var errorMessage: String = ""
     @Published public var isLoading: Bool = false
     @Published public var isError: Bool = false
@@ -49,7 +49,7 @@ where
     }
     
 //    func containsId(of id: String) -> Bool {
-//        
+//
 //        let data = list.contains { $0.id == id }
 //        return data
 //    }
