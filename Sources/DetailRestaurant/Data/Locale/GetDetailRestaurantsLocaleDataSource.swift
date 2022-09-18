@@ -23,7 +23,7 @@ public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
     public func getRestaurants() -> Observable<[DetailRestaurantDomainModel]> {
         return Observable<[DetailRestaurantDomainModel]>.create { observer in
             if let realm = self._realm {
-                let detail: Results<DetailRestaurantDomainModel> = {
+                let detail: Results<DetailRestaurantModuleEntity> = {
                     realm.objects(DetailRestaurantModuleEntity.self).sorted(byKeyPath: "id", ascending: true)
                 }()
                 observer.onNext(detail.toArray(ofType: DetailRestaurantDomainModel.self))
