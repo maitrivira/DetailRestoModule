@@ -13,20 +13,20 @@ import Foundation
 public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
     
     public typealias Request = String
-    public typealias Response = DetailRestaurantModuleEntity
+    public typealias Response = DetailRestaurantDomainModel
     
     private let _realm: Realm?
     public init(realm: Realm?) {
         _realm = realm
     }
     
-    public func getRestaurants() -> Observable<[DetailRestaurantModuleEntity]> {
-        return Observable<[DetailRestaurantModuleEntity]>.create { observer in
+    public func getRestaurants() -> Observable<[DetailRestaurantDomainModel]> {
+        return Observable<[DetailRestaurantDomainModel]>.create { observer in
             if let realm = self._realm {
-                let detail: Results<DetailRestaurantModuleEntity> = {
+                let detail: Results<DetailRestaurantDomainModel> = {
                     realm.objects(DetailRestaurantModuleEntity.self).sorted(byKeyPath: "id", ascending: true)
                 }()
-                observer.onNext(detail.toArray(ofType: DetailRestaurantModuleEntity.self))
+                observer.onNext(detail.toArray(ofType: DetailRestaurantDomainModel.self))
                 observer.onCompleted()
             }else{
                 observer.onError(DatabaseError.requestFailed)
