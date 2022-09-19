@@ -26,9 +26,9 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     
     public func getRestaurant(request id: Int) -> Observable<Bool> {
         return Observable<Bool>.create { observer in
-          if let localDatabase = self._realm {
+          if let realm = self._realm {
             do {
-              let getObjectById = localDatabase.objects(DetailRestaurantModuleEntity.self).filter("id == %@", id).first
+              let getObjectById = realm.objects(DetailRestaurantModuleEntity.self).filter("id == %@", id).first
 
               if getObjectById != nil {
                 observer.onNext(true)
@@ -47,26 +47,23 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     }
     
     public func addRestaurant(entities: DetailRestaurantDomainModel) -> Observable<Bool> {
-        print("masuk get fav locale data source", entities)
         return Observable<Bool>.create { observer in
-            print("masul observer")
             if let realm = self._realm {
-                print("masuk realm")
                 do {
                     let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
                     
-                    if !data.isEmpty {
-                        print("data sudah ada")
+                    if data.isEmpty {
+                        print("data belum ada")
                         try realm.write {
-                            realm.delete(data)
+                            realm.add(data)
                             observer.onNext(true)
                             observer.onCompleted()
                             print("data has beeen saved to local DB")
                         }
                     } else {
-                        print("data belum ada")
+                        print("data sudah ada")
                         try realm.write {
-                            realm.add(data)
+                            realm.delete(data)
                             observer.onNext(true)
                             observer.onCompleted()
                             print("data has beeen saved to local DB")
