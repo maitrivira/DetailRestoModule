@@ -56,9 +56,7 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
                     let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
                     print("data realm", data.count)
                         try realm.write {
-                            for restaurant in entities {
-                                realm.add(restaurant, update: .all)
-                            }
+                            realm.add(data)
                             observer.onNext(true)
                             observer.onCompleted()
                             print("data has beeen saved to local DB")
