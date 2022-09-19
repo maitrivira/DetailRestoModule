@@ -14,10 +14,12 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     
     public typealias Request = DetailRestaurantDomainModel
     public typealias Response = Bool
+    private let _mapper: DetailRestaurantTransformer
     
     private let _realm: Realm?
-    public init(realm: Realm) {
+    public init(realm: Realm, mapper: DetailRestaurantTransformer) {
         _realm = realm
+        _mapper = mapper
     }
     
     public func getRestaurants() -> Observable<[Bool]> {
@@ -50,17 +52,12 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
         return Observable<Bool>.create { observer in
             if let realm = self._realm {
                 do {
-                    let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
-                    let restaurants: Results<DetailRestaurantModuleEntity> = {
-                        realm.objects(DetailRestaurantModuleEntity.self)
-                            .sorted(byKeyPath: "id", ascending: true)
-                    }()
-                    print(restaurants.toArray(ofType: DetailRestaurantModuleEntity.self))
+                    let realmData = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
                     
-                    if data.isEmpty {
+                    if realmData.isEmpty {
                         print("data belum ada")
                         try realm.write {
-                            realm.add(data)
+                            realm.add(entities)
                             observer.onNext(true)
                             observer.onCompleted()
                             print("data has beeen saved to local DB")
