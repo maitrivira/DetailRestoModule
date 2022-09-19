@@ -14,9 +14,9 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     
     public typealias Request = DetailRestaurantDomainModel
     public typealias Response = Bool
-    private let _mapper: Mapper
     
     private let _realm: Realm?
+    private let _mapper: Mapper
     public init(realm: Realm, mapper: Mapper) {
         _realm = realm
         _mapper = mapper
