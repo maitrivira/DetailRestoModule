@@ -21,4 +21,4 @@ public struct DetailRestaurantDomainModel: Equatable, Identifiable {
     public let customerReviews: [CustomerReviews]
 }
 
-let emptyDetail = DetailRestaurantDomainModel(id: "", name: "", descriptions: "", city: "", address: "", pictureId: "", rating: 0.0, categories: [], menus: menuDummy, customerReviews: [])
+public let emptyDetail = DetailRestaurantDomainModel(id: "", name: "", descriptions: "", city: "", address: "", pictureId: "", rating: 0.0, categories: [], menus: menuDummy, customerReviews: [])

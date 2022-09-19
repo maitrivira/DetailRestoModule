@@ -54,7 +54,7 @@ public struct Menus: Decodable, Hashable {
     
 }
 
-let menuDummy: Menus = Menus(foods: [], drinks: [])
+public let menuDummy: Menus = Menus(foods: [], drinks: [])
 
 public struct CustomerReviews: Decodable, Hashable {
     
