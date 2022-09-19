@@ -51,24 +51,29 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
             if let realm = self._realm {
                 do {
                     let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
+                    let restaurants: Results<DetailRestaurantModuleEntity> = {
+                        realm.objects(DetailRestaurantModuleEntity.self)
+                            .sorted(byKeyPath: "id", ascending: true)
+                    }()
+                    print(restaurants.toArray(ofType: DetailRestaurantModuleEntity.self))
                     
-                    if data.isEmpty {
-                        print("data belum ada")
-                        try realm.write {
-                            realm.add(data)
-                            observer.onNext(true)
-                            observer.onCompleted()
-                            print("data has beeen saved to local DB")
-                        }
-                    } else {
-                        print("data sudah ada")
-                        try realm.write {
-                            realm.delete(data)
-                            observer.onNext(true)
-                            observer.onCompleted()
-                            print("data has beeen saved to local DB")
-                        }
-                    }
+//                    if data.isEmpty {
+//                        print("data belum ada")
+//                        try realm.write {
+//                            realm.add(data)
+//                            observer.onNext(true)
+//                            observer.onCompleted()
+//                            print("data has beeen saved to local DB")
+//                        }
+//                    } else {
+//                        print("data sudah ada")
+//                        try realm.write {
+//                            realm.delete(data)
+//                            observer.onNext(true)
+//                            observer.onCompleted()
+//                            print("data has beeen saved to local DB")
+//                        }
+//                    }
                     
                         
                 } catch {
@@ -137,4 +142,18 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
             return Disposables.create()
         }
     }
+}
+
+extension Results {
+    
+    func toArray<T>(ofType: T.Type) -> [T] {
+        var array = [T]()
+        for index in 0..<count {
+            if let result = self[index] as? T {
+                array.append(result)
+            }
+        }
+        return array
+    }
+    
 }
