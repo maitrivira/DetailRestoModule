@@ -47,12 +47,12 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     }
     
     public func addRestaurant(entities: DetailRestaurantDomainModel) -> Observable<Bool> {
-        print("masuk get fav locale data source")
+        print("masuk get fav locale data source", entities)
         return Observable<Bool>.create { observer in
           if let localDatabase = self._realm {
             do {
               let getObjectById = localDatabase.objects(DetailRestaurantModuleEntity.self).filter("id == %@", entities.id).first
-
+                print("object", getObjectById)
                 if let getObjectById = getObjectById {
                     if getObjectById != nil {
                       try localDatabase.write {
@@ -76,11 +76,11 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
 
             } catch {
               observer.onError(DatabaseError.requestFailed)
-              print(DatabaseError.requestFailed)
+              print(DatabaseError.requestFailed, "error pertama")
             }
           } else {
             observer.onError(DatabaseError.requestFailed)
-            print(DatabaseError.requestFailed)
+            print(DatabaseError.requestFailed, "error kedua")
           }
           return Disposables.create()
         }
