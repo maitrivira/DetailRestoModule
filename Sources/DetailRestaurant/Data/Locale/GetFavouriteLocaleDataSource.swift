@@ -48,41 +48,85 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     
     public func addRestaurant(entities: DetailRestaurantDomainModel) -> Observable<Bool> {
         print("masuk get fav locale data source", entities)
+//        return Observable<Bool>.create { observer in
+//            if let realm = self.realm {
+//                do {
+//                    try realm.write {
+//                        for restaurant in restaurants {
+//                            realm.add(restaurant, update: .all)
+//                        }
+//                        observer.onNext(true)
+//                        observer.onCompleted()
+//                        print("success")
+//                    }
+//                } catch {
+//                    observer.onError(DatabaseError.requestFailed)
+//                    print("error")
+//                }
+//            } else {
+//                observer.onError(DatabaseError.invalidInstance)
+//                print("error")
+//            }
+//            return Disposables.create()
+//        }
         return Observable<Bool>.create { observer in
-          if let localDatabase = self._realm {
-            do {
-              let getObjectById = localDatabase.objects(DetailRestaurantModuleEntity.self).filter("id == %@", entities.id).first
-                print("object", getObjectById)
-                if let getObjectById = getObjectById {
-                    if getObjectById != nil {
-                      try localDatabase.write {
-                        localDatabase.delete(getObjectById)
-
-                        observer.onNext(true)
-                        observer.onCompleted()
-                        print("data has beeen deleted to local DB")
-                      }
-                    } else {
-                      try localDatabase.write {
-                        localDatabase.add(getObjectById)
-
+            if let realm = self.realm {
+                do {
+                    let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
+                    print("data realm", data)
+                    try realm.write {
+                        for restaurant in entities {
+                            realm.add(restaurant, update: .all)
+                        }
                         observer.onNext(true)
                         observer.onCompleted()
                         print("data has beeen saved to local DB")
-                        print(entities)
-                      }
                     }
+                } catch {
+                    observer.onError(DatabaseError.requestFailed)
+                    print(DatabaseError.requestFailed, "error pertama")
                 }
-
-            } catch {
-              observer.onError(DatabaseError.requestFailed)
-              print(DatabaseError.requestFailed, "error pertama")
+            } else {
+                observer.onError(DatabaseError.requestFailed)
+                print(DatabaseError.requestFailed, "error kedua")
             }
-          } else {
-            observer.onError(DatabaseError.requestFailed)
-            print(DatabaseError.requestFailed, "error kedua")
-          }
-          return Disposables.create()
+            
+            return Disposables.create()
+            
+//          if let localDatabase = self._realm {
+//            do {
+//              let getObjectById = localDatabase.objects(DetailRestaurantModuleEntity.self).filter("id == %@", entities.id).first
+//                print("object", getObjectById)
+//                if let getObjectById = getObjectById {
+//                    if getObjectById != nil {
+//                      try localDatabase.write {
+//                        localDatabase.delete(getObjectById)
+//
+//                        observer.onNext(true)
+//                        observer.onCompleted()
+//                        print("data has beeen deleted to local DB")
+//                      }
+//                    } else {
+//                      try localDatabase.write {
+//                        localDatabase.add(getObjectById)
+//
+//                        observer.onNext(true)
+//                        observer.onCompleted()
+//                        print("data has beeen saved to local DB")
+//                        print(entities)
+//                      }
+//                    }
+//                }
+//
+//            } catch {
+//              observer.onError(DatabaseError.requestFailed)
+//              print(DatabaseError.requestFailed, "error pertama")
+//            }
+//          } else {
+//            observer.onError(DatabaseError.requestFailed)
+//            print(DatabaseError.requestFailed, "error kedua")
+//          }
+//          return Disposables.create()
         }
     }
     
