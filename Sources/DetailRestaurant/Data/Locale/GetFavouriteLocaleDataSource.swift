@@ -10,14 +10,18 @@ import RxSwift
 import RealmSwift
 import Foundation
 
-public struct GetFavouriteLocaleDataSource: LocaleDataSource {
+public struct GetFavouriteLocaleDataSource<Transformer: Mapper>: LocaleDataSource
+where
+    Transformer.Request == DetailRestaurantDomainModel,
+    Transformer.Response == Bool {
     
     public typealias Request = DetailRestaurantDomainModel
     public typealias Response = Bool
     
     private let _realm: Realm?
-    private let _mapper: Mapper
-    public init(realm: Realm, mapper: Mapper) {
+    private let _mapper: Transformer
+        
+    public init(realm: Realm, mapper: Transformer) {
         _realm = realm
         _mapper = mapper
     }
@@ -53,11 +57,12 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
             if let realm = self._realm {
                 do {
                     let realmData = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
+                    let data = _mapper.transformModelToEntity(request: entities)
                     
                     if realmData.isEmpty {
                         print("data belum ada")
                         try realm.write {
-                            realm.add(entities)
+                            realm.add(data)
                             observer.onNext(true)
                             observer.onCompleted()
                             print("data has beeen saved to local DB")
