@@ -16,7 +16,7 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     public typealias Response = Bool
     
     private let _realm: Realm?
-    public init(realm: Realm?) {
+    public init(realm: Realm) {
         _realm = realm
     }
     
@@ -49,10 +49,9 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     public func addRestaurant(entities: DetailRestaurantDomainModel) -> Observable<Bool> {
         print("masuk get fav locale data source", entities)
         return Observable<Bool>.create { observer in
-            if let realm = self._realm {
-                do {
-                    let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
-                    print("data realm", data)
+            do {
+                let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
+                print("data realm", data)
 //                    try realm.write {
 //                        for restaurant in entities {
 //                            realm.add(restaurant, update: .all)
@@ -61,13 +60,9 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
 //                        observer.onCompleted()
 //                        print("data has beeen saved to local DB")
 //                    }
-                } catch {
-                    observer.onError(DatabaseError.requestFailed)
-                    print(DatabaseError.requestFailed, "error pertama")
-                }
-            } else {
+            } catch {
                 observer.onError(DatabaseError.requestFailed)
-                print(DatabaseError.requestFailed, "error kedua")
+                print(DatabaseError.requestFailed, "error pertama")
             }
             
             return Disposables.create()
