@@ -16,7 +16,7 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     public typealias Response = Bool
     
     private let _realm: Realm?
-    public init(realm: Realm) {
+    public init(realm: Realm?) {
         _realm = realm
     }
     
@@ -49,20 +49,25 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     public func addRestaurant(entities: DetailRestaurantDomainModel) -> Observable<Bool> {
         print("masuk get fav locale data source", entities)
         return Observable<Bool>.create { observer in
-            do {
-                let data = _realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
-                print("data realm", data)
-//                    try realm.write {
-//                        for restaurant in entities {
-//                            realm.add(restaurant, update: .all)
-//                        }
-//                        observer.onNext(true)
-//                        observer.onCompleted()
-//                        print("data has beeen saved to local DB")
-//                    }
-            } catch {
+            if let localDatabase = self._realm {
+                do {
+                    let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
+                    print("data realm", data)
+    //                    try realm.write {
+    //                        for restaurant in entities {
+    //                            realm.add(restaurant, update: .all)
+    //                        }
+    //                        observer.onNext(true)
+    //                        observer.onCompleted()
+    //                        print("data has beeen saved to local DB")
+    //                    }
+                } catch {
+                    observer.onError(DatabaseError.requestFailed)
+                    print(DatabaseError.requestFailed, "error pertama")
+                }
+            }else{
                 observer.onError(DatabaseError.requestFailed)
-                print(DatabaseError.requestFailed, "error pertama")
+                print(DatabaseError.requestFailed, "error kedua")
             }
             
             return Disposables.create()
