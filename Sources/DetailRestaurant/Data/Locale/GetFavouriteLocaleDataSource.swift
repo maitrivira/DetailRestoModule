@@ -50,7 +50,7 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
         print("masuk get fav locale data source", entities)
         return Observable<Bool>.create { observer in
             do {
-                let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
+                let data = _realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
                 print("data realm", data)
 //                    try realm.write {
 //                        for restaurant in entities {
