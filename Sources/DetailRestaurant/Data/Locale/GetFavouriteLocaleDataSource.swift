@@ -13,7 +13,8 @@ import Foundation
 public struct GetFavouriteLocaleDataSource<Transformer: Mapper>: LocaleDataSource
 where
     Transformer.Request == DetailRestaurantDomainModel,
-    Transformer.Response == Bool {
+    Transformer.Response == Bool,
+    Transformer.Entity == DetailRestaurantModuleEntity{
     
     public typealias Request = DetailRestaurantDomainModel
     public typealias Response = Bool
