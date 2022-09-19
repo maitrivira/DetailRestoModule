@@ -47,6 +47,7 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     }
     
     public func addRestaurant(entities: DetailRestaurantDomainModel) -> Observable<Bool> {
+        print("masuk get fav locale data source")
         return Observable<Bool>.create { observer in
           if let localDatabase = self._realm {
             do {

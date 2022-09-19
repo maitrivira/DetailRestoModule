@@ -33,6 +33,7 @@ where
         }
         
         public func execute(request: DetailRestaurantDomainModel?) -> Observable<Bool> {
+            print("masuk update fav repo")
             return _localeDataSource.addRestaurant(entities: request ?? emptyDetail)
         }
 }
