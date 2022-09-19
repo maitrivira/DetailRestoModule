@@ -54,14 +54,19 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
                 print("masuk realm")
                 do {
                     let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
-                    print("data realm", data)
-                    print("jumlah realm", data.count)
-//                        try realm.write {
-//                            realm.add(data)
-//                            observer.onNext(true)
-//                            observer.onCompleted()
-//                            print("data has beeen saved to local DB")
-//                        }
+                    
+                    if !data.isEmpty {
+                        print("data belum ada")
+                    } else {
+                        print("data sudah ada")
+                    }
+                    
+                        try realm.write {
+                            realm.add(data)
+                            observer.onNext(true)
+                            observer.onCompleted()
+                            print("data has beeen saved to local DB")
+                        }
                 } catch {
                     observer.onError(DatabaseError.requestFailed)
                     print(DatabaseError.requestFailed, "error data")
