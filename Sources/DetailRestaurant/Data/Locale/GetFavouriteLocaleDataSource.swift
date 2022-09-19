@@ -48,40 +48,19 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     
     public func addRestaurant(entities: DetailRestaurantDomainModel) -> Observable<Bool> {
         print("masuk get fav locale data source", entities)
-//        return Observable<Bool>.create { observer in
-//            if let realm = self.realm {
-//                do {
+        return Observable<Bool>.create { observer in
+            if let realm = self._realm {
+                do {
+                    let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
+                    print("data realm", data)
 //                    try realm.write {
-//                        for restaurant in restaurants {
+//                        for restaurant in entities {
 //                            realm.add(restaurant, update: .all)
 //                        }
 //                        observer.onNext(true)
 //                        observer.onCompleted()
-//                        print("success")
+//                        print("data has beeen saved to local DB")
 //                    }
-//                } catch {
-//                    observer.onError(DatabaseError.requestFailed)
-//                    print("error")
-//                }
-//            } else {
-//                observer.onError(DatabaseError.invalidInstance)
-//                print("error")
-//            }
-//            return Disposables.create()
-//        }
-        return Observable<Bool>.create { observer in
-            if let realm = self.realm {
-                do {
-                    let data = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
-                    print("data realm", data)
-                    try realm.write {
-                        for restaurant in entities {
-                            realm.add(restaurant, update: .all)
-                        }
-                        observer.onNext(true)
-                        observer.onCompleted()
-                        print("data has beeen saved to local DB")
-                    }
                 } catch {
                     observer.onError(DatabaseError.requestFailed)
                     print(DatabaseError.requestFailed, "error pertama")
