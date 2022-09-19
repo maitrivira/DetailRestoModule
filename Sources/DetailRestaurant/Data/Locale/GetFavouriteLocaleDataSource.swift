@@ -57,23 +57,23 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
                     }()
                     print(restaurants.toArray(ofType: DetailRestaurantModuleEntity.self))
                     
-//                    if data.isEmpty {
-//                        print("data belum ada")
-//                        try realm.write {
-//                            realm.add(data)
-//                            observer.onNext(true)
-//                            observer.onCompleted()
-//                            print("data has beeen saved to local DB")
-//                        }
-//                    } else {
-//                        print("data sudah ada")
-//                        try realm.write {
-//                            realm.delete(data)
-//                            observer.onNext(true)
-//                            observer.onCompleted()
-//                            print("data has beeen saved to local DB")
-//                        }
-//                    }
+                    if data.isEmpty {
+                        print("data belum ada")
+                        try realm.write {
+                            realm.add(data)
+                            observer.onNext(true)
+                            observer.onCompleted()
+                            print("data has beeen saved to local DB")
+                        }
+                    } else {
+                        print("data sudah ada")
+                        try realm.write {
+                            realm.delete(data)
+                            observer.onNext(true)
+                            observer.onCompleted()
+                            print("data has beeen saved to local DB")
+                        }
+                    }
                     
                         
                 } catch {
