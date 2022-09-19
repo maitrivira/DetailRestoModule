@@ -16,7 +16,7 @@ public struct GetFavouriteLocaleDataSource: LocaleDataSource {
     public typealias Response = Bool
     
     private let _realm: Realm?
-    public init(realm: Realm?) {
+    public init(realm: Realm) {
         _realm = realm
     }
     
