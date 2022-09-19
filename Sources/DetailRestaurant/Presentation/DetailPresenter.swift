@@ -50,6 +50,7 @@ where
     
     // update favourite
     public func updateFavouriteList(request: FavUseCase.Request) {
+        print("masuk presenter")
         isLoading = true
         _favUseCase.execute(request: request)
             .observe(on: MainScheduler.instance)
