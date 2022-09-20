@@ -61,22 +61,20 @@ where
                     let data = _mapper.transformModelToEntity(request: entities)
                     
                     if let realmData = realmData {
-                        if realmData.isEmpty {
-                            print("data belum ada")
-                            try realm.write {
-                                realm.add(data)
-                                observer.onNext(true)
-                                observer.onCompleted()
-                                print("data has beeen saved to local DB")
-                            }
-                        } else {
-                            print("data sudah ada")
-                            try realm.write {
-                                realm.delete(data)
-                                observer.onNext(true)
-                                observer.onCompleted()
-                                print("data has beeen saved to local DB")
-                            }
+                        print("data sudah ada")
+                        try realm.write {
+                            realm.delete(data)
+                            observer.onNext(true)
+                            observer.onCompleted()
+                            print("data has beeen saved to local DB")
+                        }
+                    } else {
+                        print("data belum ada")
+                        try realm.write {
+                            realm.add(data)
+                            observer.onNext(true)
+                            observer.onCompleted()
+                            print("data has beeen saved to local DB")
                         }
                     }
                         
