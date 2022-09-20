@@ -57,7 +57,7 @@ where
         return Observable<Bool>.create { observer in
             if let realm = self._realm {
                 do {
-                    let realmData = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
+                    let realmData = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id).first
                     let data = _mapper.transformModelToEntity(request: entities)
                     
                     if realmData.isEmpty {
@@ -70,12 +70,12 @@ where
                         }
                     } else {
                         print("data sudah ada")
-//                        try realm.write {
-//                            realm.delete(data)
-//                            observer.onNext(true)
-//                            observer.onCompleted()
-//                            print("data has beeen saved to local DB")
-//                        }
+                        try realm.write {
+                            realm.delete(data)
+                            observer.onNext(true)
+                            observer.onCompleted()
+                            print("data has beeen saved to local DB")
+                        }
                     }
                     
                         
@@ -89,41 +89,6 @@ where
             }
             
             return Disposables.create()
-            
-//          if let localDatabase = self._realm {
-//            do {
-//              let getObjectById = localDatabase.objects(DetailRestaurantModuleEntity.self).filter("id == %@", entities.id).first
-//                print("object", getObjectById)
-//                if let getObjectById = getObjectById {
-//                    if getObjectById != nil {
-//                      try localDatabase.write {
-//                        localDatabase.delete(getObjectById)
-//
-//                        observer.onNext(true)
-//                        observer.onCompleted()
-//                        print("data has beeen deleted to local DB")
-//                      }
-//                    } else {
-//                      try localDatabase.write {
-//                        localDatabase.add(getObjectById)
-//
-//                        observer.onNext(true)
-//                        observer.onCompleted()
-//                        print("data has beeen saved to local DB")
-//                        print(entities)
-//                      }
-//                    }
-//                }
-//
-//            } catch {
-//              observer.onError(DatabaseError.requestFailed)
-//              print(DatabaseError.requestFailed, "error pertama")
-//            }
-//          } else {
-//            observer.onError(DatabaseError.requestFailed)
-//            print(DatabaseError.requestFailed, "error kedua")
-//          }
-//          return Disposables.create()
         }
     }
     
