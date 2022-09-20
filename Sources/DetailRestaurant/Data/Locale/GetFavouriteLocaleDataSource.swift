@@ -60,18 +60,19 @@ where
                     let realmData = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
                     let data = _mapper.transformModelToEntity(request: entities)
                     print("data realm data", realmData)
-                    if let realmData = realmData {
-                        print("data sudah ada")
+                    
+                    if realmData.isEmpty {
+                        print("data belum ada")
 //                        try realm.write {
-//                            realm.delete(realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id))
+//                            realm.add(data)
 //                            observer.onNext(true)
 //                            observer.onCompleted()
 //                            print("data has beeen saved to local DB")
 //                        }
                     } else {
-                        print("data belum ada")
+                        print("data sudah ada")
 //                        try realm.write {
-//                            realm.add(data)
+//                            realm.delete(realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id))
 //                            observer.onNext(true)
 //                            observer.onCompleted()
 //                            print("data has beeen saved to local DB")
