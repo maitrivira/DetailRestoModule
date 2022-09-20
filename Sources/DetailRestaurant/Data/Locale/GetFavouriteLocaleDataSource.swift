@@ -75,7 +75,7 @@ where
                             realm.delete(realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id))
                             observer.onNext(true)
                             observer.onCompleted()
-                            print("data has beeen saved to local DB")
+                            print("data has beeen delete to local DB")
                         }
                     }
                         
