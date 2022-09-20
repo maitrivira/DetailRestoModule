@@ -63,7 +63,7 @@ where
                     if let realmData = realmData {
                         print("data sudah ada")
                         try realm.write {
-                            realm.delete(data)
+                            realm.delete(realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", id))
                             observer.onNext(true)
                             observer.onCompleted()
                             print("data has beeen saved to local DB")
