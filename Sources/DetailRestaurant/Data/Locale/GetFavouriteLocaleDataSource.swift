@@ -57,9 +57,9 @@ where
         return Observable<Bool>.create { observer in
             if let realm = self._realm {
                 do {
-                    let realmData = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id).first
+                    let realmData = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
                     let data = _mapper.transformModelToEntity(request: entities)
-                    
+                    print("data realm data", realmData)
                     if let realmData = realmData {
                         print("data sudah ada")
 //                        try realm.write {
