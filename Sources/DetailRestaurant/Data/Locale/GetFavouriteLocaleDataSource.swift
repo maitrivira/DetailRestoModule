@@ -70,12 +70,12 @@ where
                         }
                     } else {
                         print("data sudah ada")
-                        try realm.write {
-                            realm.delete(data)
-                            observer.onNext(true)
-                            observer.onCompleted()
-                            print("data has beeen saved to local DB")
-                        }
+//                        try realm.write {
+//                            realm.delete(data)
+//                            observer.onNext(true)
+//                            observer.onCompleted()
+//                            print("data has beeen saved to local DB")
+//                        }
                     }
                     
                         
