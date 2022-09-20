@@ -35,15 +35,15 @@ where
         return Observable<Bool>.create { observer in
           if let realm = self._realm {
             do {
-              let getObjectById = realm.objects(DetailRestaurantModuleEntity.self).filter("id == %@", id).first
+              let getObjectById = realm.objects(DetailRestaurantModuleEntity.self).filter("id == %@", id)
 
-              if getObjectById != nil {
-                observer.onNext(true)
-              } else {
-                observer.onNext(false)
-              }
+                if !getObjectById.isEmpty {
+                    observer.onNext(true)
+                } else {
+                    observer.onNext(false)
+                }
 
-              observer.onCompleted()
+                observer.onCompleted()
             }
           } else {
             observer.onError(DatabaseError.requestFailed)
@@ -59,33 +59,27 @@ where
                 do {
                     let realmData = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
                     let data = _mapper.transformModelToEntity(request: entities)
-                    print("data realm data", realmData)
-                    
                     if realmData.isEmpty {
-                        print("data belum ada")
                         try realm.write {
                             realm.add(data)
                             observer.onNext(true)
                             observer.onCompleted()
-                            print("data has beeen saved to local DB")
                         }
                     } else {
-                        print("data sudah ada")
                         try realm.write {
                             realm.delete(realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id))
                             observer.onNext(true)
                             observer.onCompleted()
-                            print("data has beeen delete to local DB")
                         }
                     }
                         
                 } catch {
                     observer.onError(DatabaseError.requestFailed)
-                    print(DatabaseError.requestFailed, "error data")
+                    print(DatabaseError.requestFailed)
                 }
             }else{
                 observer.onError(DatabaseError.requestFailed)
-                print(DatabaseError.requestFailed, "error realm")
+                print(DatabaseError.requestFailed)
             }
             
             return Disposables.create()
