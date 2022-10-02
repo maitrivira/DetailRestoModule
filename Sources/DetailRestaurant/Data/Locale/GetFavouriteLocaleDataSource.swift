@@ -28,7 +28,19 @@ where
     }
     
     public func getRestaurants() -> Observable<[Bool]> {
-        fatalError()
+        return Observable<[RestaurantEntity]>.create { observer in
+            if let realm = self.realm {
+                let restaurants: Results<RestaurantEntity> = {
+                    realm.objects(RestaurantEntity.self)
+                        .sorted(byKeyPath: "id", ascending: true)
+                }()
+                observer.onNext(restaurants.toArray(ofType: RestaurantEntity.self))
+                observer.onCompleted()
+            } else {
+                observer.onError(DatabaseError.requestFailed)
+            }
+            return Disposables.create()
+        }
     }
     
     public func getRestaurant(request id: Int) -> Observable<Bool> {
