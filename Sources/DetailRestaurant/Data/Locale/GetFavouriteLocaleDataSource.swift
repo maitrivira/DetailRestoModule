@@ -28,20 +28,23 @@ where
     }
     
     public func getRestaurants() -> Observable<[Bool]> {
-//        return Observable<[RestaurantEntity]>.create { observer in
-//            if let realm = self.realm {
-//                let restaurants: Results<RestaurantEntity> = {
-//                    realm.objects(RestaurantEntity.self)
-//                        .sorted(byKeyPath: "id", ascending: true)
-//                }()
-//                observer.onNext(restaurants.toArray(ofType: RestaurantEntity.self))
-//                observer.onCompleted()
-//            } else {
-//                observer.onError(DatabaseError.requestFailed)
-//            }
-//            return Disposables.create()
-//        }
-        return fatalError()
+        print("masuk fav detail data source")
+        return Observable<[DetailRestaurantModuleEntity]>.create { observer in
+
+            if let realm = self._realm {
+                let restaurants: Results<DetailRestaurantModuleEntity> = {
+                    realm.objects(DetailRestaurantModuleEntity.self)
+                        .sorted(byKeyPath: "id", ascending: true)
+                }()
+                observer.onNext(restaurants.toArray(ofType: DetailRestaurantModuleEntity.self))
+                print("data resto", restaurants.toArray(ofType: DetailRestaurantModuleEntity.self))
+                observer.onCompleted()
+            } else {
+                observer.onError(DatabaseError.requestFailed)
+            }
+            return Disposables.create()
+
+        }
     }
     
     public func getRestaurant(request id: Int) -> Observable<Bool> {
