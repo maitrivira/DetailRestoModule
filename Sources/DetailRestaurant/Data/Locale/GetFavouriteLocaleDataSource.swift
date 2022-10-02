@@ -77,12 +77,14 @@ where
                             realm.add(data)
                             observer.onNext(true)
                             observer.onCompleted()
+                            print("berhasil simpan")
                         }
                     } else {
                         try realm.write {
                             realm.delete(realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id))
                             observer.onNext(true)
                             observer.onCompleted()
+                            print("berhasil hapus")
                         }
                     }
                         
