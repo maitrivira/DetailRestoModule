@@ -17,7 +17,7 @@ where
     Transformer.Entity == DetailRestaurantModuleEntity{
     
     private let _keyStoreFavoriteResto: String = "FavoriteResto"
-    @Published public var favoriteResto: [Int] = []
+    public var favoriteResto: [Int] = []
     public typealias Request = DetailRestaurantDomainModel
     public typealias Response = Bool
     
