@@ -21,7 +21,7 @@ where
     private let _detailUseCase: DetailRestoUseCase
     private let _favUseCase: UpdateFavUseCase
     private let _keyStoreFavoriteResto: String = "FavoriteResto"
-    @Published public var favoriteResto: [Int] = []
+    @Published public var favoriteResto: [String] = []
     @Published public var lists: [DetailRestaurantDomainModel] = []
     @Published public var list: DetailRestaurantDomainModel?
     @Published public var errorMessage: String = ""

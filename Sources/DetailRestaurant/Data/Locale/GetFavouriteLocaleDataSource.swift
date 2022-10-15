@@ -67,7 +67,6 @@ where
                     } else {
                         try realm.write {
                             realm.delete(realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id))
-                            favoriteResto = remove
                             print("berhasil hapus")
                         }
                     }
