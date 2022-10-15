@@ -28,8 +28,7 @@ where
     }
     
     public func getRestaurants() -> Observable<[Bool]> {
-        observer.onCompleted()
-        return Disposables.create()
+        fatalError()
     }
     
     public func getRestaurant(request id: Int) -> Observable<Bool> {
