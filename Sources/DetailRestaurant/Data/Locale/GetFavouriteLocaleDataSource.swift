@@ -31,7 +31,7 @@ where
     }
         
     public func getRestoUD() {
-        favoriteResto = UserDefaults.standard.object(forKey: self._keyStoreFavoriteResto)
+        favoriteResto = UserDefaults.standard.object(forKey: self._keyStoreFavoriteResto) as? [Int] ?? [0]
     }
     
     public func getRestaurants() -> Observable<[Bool]> {
