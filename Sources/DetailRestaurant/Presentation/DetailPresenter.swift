@@ -68,7 +68,7 @@ where
     }
     
     public func getFavoriteToUD() {
-        favoriteResto = UserDefaults.standard.object(forKey: self._keyStoreFavoriteResto)
+        favoriteResto = UserDefaults.standard.object(forKey: self._keyStoreFavoriteResto) as? [Int] ?? [0]
         print("data user default", lists)
     }
 }
