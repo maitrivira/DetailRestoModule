@@ -59,10 +59,10 @@ where
             .subscribe { result in
                 self.isSaved = result
                 if result {
-                    favoriteResto.append(request.id)
+                    self.favoriteResto.append(request.id)
                 }else{
-                    let index = favoriteResto.firstIndex(of: request.id)
-                    favoriteResto.remove(at: index)
+                    let index = self.favoriteResto.firstIndex(of: request.id)
+                    self.favoriteResto.remove(at: index ?? 0)
                 }
                 updateFavoriteToUD()
             } onError: { error in
@@ -75,7 +75,7 @@ where
     }
     
     public func getFavoriteToUD() {
-        favoriteResto = UserDefaults.standard.object(forKey: self._keyStoreFavoriteResto) as? [Int] ?? [0]
+        favoriteResto = UserDefaults.standard.object(forKey: self._keyStoreFavoriteResto) as? [String] ?? [""]
         print("data user default", lists)
     }
     
