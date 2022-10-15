@@ -9,7 +9,7 @@ import SwiftUI
 import RxSwift
 import Core
 
-public class DetailPresenter<DetailRestoUseCase: UseCase, UpdateFavUseCase: UseCase, AllDetail: UseCase>: ObservableObject
+public class DetailPresenter<DetailRestoUseCase: UseCase, UpdateFavUseCase: UseCase>: ObservableObject
 where
     DetailRestoUseCase.Request == String,
     DetailRestoUseCase.Response == DetailRestaurantDomainModel,
