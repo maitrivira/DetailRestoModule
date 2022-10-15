@@ -58,6 +58,13 @@ where
             .observe(on: MainScheduler.instance)
             .subscribe { result in
                 self.isSaved = result
+                if result {
+                    favoriteResto.append(request.id)
+                }else{
+                    let index = favoriteResto.firstIndex(of: request.id)
+                    favoriteResto.remove(at: index)
+                }
+                updateFavoriteToUD()
             } onError: { error in
                 self.errorMessage = error.localizedDescription
                 self.isError = true
@@ -70,5 +77,9 @@ where
     public func getFavoriteToUD() {
         favoriteResto = UserDefaults.standard.object(forKey: self._keyStoreFavoriteResto) as? [Int] ?? [0]
         print("data user default", lists)
+    }
+    
+    public func updateFavoriteToUD() {
+        UserDefaults.standard.set(self.favoriteResto, forKey: self._keyStoreFavoriteResto)
     }
 }
