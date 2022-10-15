@@ -67,8 +67,8 @@ where
     }
     
     private func favorite(data: UpdateFavUseCase.Request) {
-        let data = lists.filter { $0.id == data.id}
-        if data != nil {
+        let dataFilter = lists.filter { $0.id == data.id}
+        if dataFilter != nil {
             lists.append(data)
             print("data berhasil di simpan")
         }
