@@ -16,6 +16,8 @@ where
     Transformer.Response == Bool,
     Transformer.Entity == DetailRestaurantModuleEntity{
     
+    private let _keyStoreFavoriteResto: String = "FavoriteResto"
+    @Published public var favoriteResto: [Int] = []
     public typealias Request = DetailRestaurantDomainModel
     public typealias Response = Bool
     
@@ -25,6 +27,11 @@ where
     public init(realm: Realm, mapper: Transformer) {
         _realm = realm
         _mapper = mapper
+        getRestoUD()
+    }
+        
+    public func getRestoUD() {
+        favoriteResto = UserDefaults.standard.object(forKey: self._keyStoreFavoriteResto)
     }
     
     public func getRestaurants() -> Observable<[Bool]> {
@@ -62,19 +69,20 @@ where
                     if realmData.isEmpty {
                         try realm.write {
                             realm.add(data)
-                            observer.onNext(true)
-                            observer.onCompleted()
+                            favoriteResto.append(data.id)
                             print("berhasil simpan")
                         }
                     } else {
                         try realm.write {
                             realm.delete(realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id))
-                            observer.onNext(true)
-                            observer.onCompleted()
+                            let remove = favoriteResto.filter { $0 != data.id}
+                            favoriteResto = remove
                             print("berhasil hapus")
                         }
                     }
-                        
+                    UserDefaults.standard.set(self.favoriteResto, forKey: self._keyStoreFavoriteResto)
+                    observer.onNext(true)
+                    observer.onCompleted()
                 } catch {
                     observer.onError(DatabaseError.requestFailed)
                     print(DatabaseError.requestFailed)

@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/maitrivira/CoreModule.git",
         "state": {
           "branch": null,
-          "revision": "f5e517ac8b3d7af4c611eda3645a86d78d1b3f44",
-          "version": "1.0.23"
+          "revision": "6611416e4439ddb13571e93ff78afdc071eaf256",
+          "version": "1.0.30"
         }
       },
       {
@@ -15,17 +15,17 @@
         "repositoryURL": "https://github.com/realm/realm-cocoa.git",
         "state": {
           "branch": null,
-          "revision": "2dce752b48c3265c63ab04a8c66ddfdf9185f847",
-          "version": "5.5.2"
+          "revision": "7055d820a133da4395742758bd48bab0841cc4bf",
+          "version": "10.32.0"
         }
       },
       {
-        "package": "RealmCore",
+        "package": "RealmDatabase",
         "repositoryURL": "https://github.com/realm/realm-core",
         "state": {
           "branch": null,
-          "revision": "66d79b3c5213fb14d491c1b22193077b488d49a6",
-          "version": "6.2.4"
+          "revision": "b86d2107fec4246b55af24a3b11e00275575f808",
+          "version": "12.9.0"
         }
       },
       {

@@ -20,7 +20,8 @@ where
     private let disposeBag = DisposeBag()
     private let _detailUseCase: DetailRestoUseCase
     private let _favUseCase: UpdateFavUseCase
-    
+    private let _keyStoreFavoriteResto: String = "FavoriteResto"
+    @Published public var favoriteResto: [Int] = []
     @Published public var lists: [DetailRestaurantDomainModel] = []
     @Published public var list: DetailRestaurantDomainModel?
     @Published public var errorMessage: String = ""
@@ -31,6 +32,7 @@ where
     public init(detailUseCase: DetailRestoUseCase, favUseCase: UpdateFavUseCase) {
         _detailUseCase = detailUseCase
         _favUseCase = favUseCase
+        getFavoriteToUD()
     }
     
     // get detail
@@ -52,7 +54,6 @@ where
     // update favourite
     public func updateFavouriteList(request: UpdateFavUseCase.Request) {
         isLoading = true
-        favorite(data: request)
         _favUseCase.execute(request: request)
             .observe(on: MainScheduler.instance)
             .subscribe { result in
@@ -66,11 +67,8 @@ where
             }.disposed(by: disposeBag)
     }
     
-    private func favorite(data: UpdateFavUseCase.Request) {
-        let dataFilter = lists.filter { $0.id == data.id}
-        if dataFilter != nil {
-            lists.append(data)
-            print("data berhasil di simpan")
-        }
+    public func getFavoriteToUD() {
+        favoriteResto = UserDefaults.standard.object(forKey: self._keyStoreFavoriteResto)
+        print("data user default", lists)
     }
 }
