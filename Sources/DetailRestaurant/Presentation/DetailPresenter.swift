@@ -32,7 +32,7 @@ where
     public init(detailUseCase: DetailRestoUseCase, favUseCase: UpdateFavUseCase) {
         _detailUseCase = detailUseCase
         _favUseCase = favUseCase
-        getFavoriteToUD()
+        getFavoriteFromUD()
     }
     
     // get detail
@@ -74,9 +74,9 @@ where
             }.disposed(by: disposeBag)
     }
     
-    public func getFavoriteToUD() {
+    public func getFavoriteFromUD() {
         favoriteResto = UserDefaults.standard.object(forKey: self._keyStoreFavoriteResto) as? [String] ?? [""]
-        print("data user default", lists)
+        print("data user default", favoriteResto)
     }
     
     public func updateFavoriteToUD() {
