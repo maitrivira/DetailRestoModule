@@ -21,6 +21,7 @@ public struct GetDetailRestaurantsLocaleDataSource: LocaleDataSource {
     }
     
     public func getRestaurants() -> Observable<[DetailRestaurantDomainModel]> {
+        print("masuk detail resto locale data source")
         return Observable<[DetailRestaurantDomainModel]>.create { observer in
             if let realm = self._realm {
                 let detail: Results<DetailRestaurantModuleEntity> = {

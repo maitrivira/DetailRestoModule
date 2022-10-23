@@ -64,7 +64,7 @@ where
                     let index = self.favoriteResto.firstIndex(of: request.id)
                     self.favoriteResto.remove(at: index ?? 0)
                 }
-                updateFavoriteToUD()
+                self.updateFavoriteToUD()
             } onError: { error in
                 self.errorMessage = error.localizedDescription
                 self.isError = true
