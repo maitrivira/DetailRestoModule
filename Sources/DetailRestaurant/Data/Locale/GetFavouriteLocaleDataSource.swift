@@ -58,8 +58,6 @@ where
             if let realm = self._realm {
                 do {
                     let realmData = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
-                    print("data entities id", entities.id)
-                    print(" data realm ", realmData)
                     let data = _mapper.transformModelToEntity(request: entities)
                     if realmData.isEmpty {
                         try realm.write {
@@ -68,7 +66,7 @@ where
                         }
                     } else {
                         try realm.write {
-                            realm.delete(data)
+                            realm.delete(realmData)
                             print("berhasil hapus")
                         }
                     }
