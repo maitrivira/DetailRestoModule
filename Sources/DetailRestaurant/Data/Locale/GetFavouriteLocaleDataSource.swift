@@ -64,13 +64,14 @@ where
                             realm.add(data)
                             print("berhasil simpan")
                         }
+                        observer.onNext(true)
                     } else {
                         try realm.write {
                             realm.delete(realmData)
                             print("berhasil hapus")
                         }
+                        observer.onNext(false)
                     }
-                    observer.onNext(true)
                     observer.onCompleted()
                 } catch {
                     observer.onError(DatabaseError.requestFailed)
