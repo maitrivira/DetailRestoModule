@@ -59,7 +59,7 @@ where
                 do {
                     let realmData = realm.objects(DetailRestaurantModuleEntity.self).filter("id=%@", entities.id)
                     let data = _mapper.transformModelToEntity(request: entities)
-                    if realmData.isEmpty {
+                    if realmData.count == nil || realmData.count == 0 {
                         try realm.write {
                             realm.add(data)
                             print("berhasil simpan")
